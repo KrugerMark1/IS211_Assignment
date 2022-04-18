@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html>
+
+	<head>
+		<title>To Do List</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" type="text/css"></link>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	</head>
+
+	<body>
+		<div>
+			<h1>Welcome!</h1>
+		</div>
+		<div class="app-outter">
+			<div class="app-inner">
+				<div>
+					<h2>To Do:</h2>
+				</div>
+				<div>
+					<table>
+						<tr>
+						  <th>Task</th>
+						  <th>Email</th>
+						  <th>Priority</th>
+						</tr>
+					{% for item in todo_list %}
+						<tr>
+							<td>{{item.task}}</td>
+							<td>{{item.email}}</td>
+							<td>{{item.priority}}</td>
+							<td>
+								<form action="/delete">
+									<input type="hidden" name="task_id" value="{{item.id}}">
+									<button type="submit" class="">Delete</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+					</table>
+				</div>
+			</div>
+			<div class="app-inner">
+				<form action="/submit">
+					<label for="task">
+						Task
+					</label>
+					<input type="text" name="task">
+					<label for="email">
+						Email
+					</label>
+					<input type="email" name="email">
+					<label for="priority">
+						Priority
+					</label>
+					<select name="priority">
+						<option>Low</option>
+						<option>Medium</option>
+						<option>High</option>
+					</select>
+					<button type="submit" class="submit">Submit</button>
+				</form>
+				<form action="/clear">
+					<button type="submit" class="clear">Clear</button>
+				</form>
+				<form action="/save">
+					<button type="submit" class="clear">Save</button>
+				</form>
+			</div>
+		</div>
+	</body>
+
+</html>
